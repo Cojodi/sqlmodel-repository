@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "base_crud"
-version = "0.1.0"
+name = "sqlmodel-repository"
+version = "0.0.1"
 description = ""
-authors = ["Dmitrij Vinokour <dimfred.1337@web.de>"]
+authors = ["Dmitrij Vinokour <dmitrij.vinokour@cojodi.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0.0"
