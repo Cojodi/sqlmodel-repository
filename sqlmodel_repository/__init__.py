@@ -1,11 +1,11 @@
-from typing import Any, Generic, Type, TypeVar
+from typing import Any, Generic, TypeVar
 
 from pydantic import validate_model
 from sqlalchemy.orm import selectinload
 from sqlmodel import SQLModel, select
 
 
-def _update(self, obj: SQLModel | Any, **kwargs):
+def _update(self, obj: SQLModel, **kwargs):
     if obj is not None:
         for k, v in obj.model_dump().items():
             setattr(self, k, v)
@@ -20,14 +20,14 @@ def _update(self, obj: SQLModel | Any, **kwargs):
     return self
 
 
-setattr(SQLModel, "update", _update)
+setattr(SQLModel, "update", _update)  # type: ignore
 
 
 T = TypeVar("T", bound=SQLModel)
 
 
 class Repository(Generic[T]):
-    def __init__(self, db, table_cls: Type[T]):
+    def __init__(self, db, table_cls: type[T]):
         self.db = db
         self.table_cls = table_cls
 
