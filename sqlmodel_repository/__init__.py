@@ -52,15 +52,22 @@ class Repository(Generic[T]):
     def all(
         self,
         *,
-        where,
-        relationships,
-        order_by,
+        where: bool | None = None,
+        relationships: list[Any] | None = None,
+        order_by: list[Any] | None = None,
+        offset: int = 0,
+        limit: int = 0,
     ):  # pragma: no cover
-        q = self._build_query(where, relationships, order_by)
+        q = self._build_query(where, relationships, order_by, offset, limit)
         return self.db.exec(q).all()
 
-    def _build_query(self, where, relationships, order_by):
+    def _build_query(
+        self, where, relationships, order_by, offset: int = 0, limit: int = 0
+    ):
         q = select(self.table_cls)
+        if limit > 0:
+            q = q.offset(offset).limit(limit)
+
         if relationships is not None:
             for relationship in relationships:
                 q = q.options(selectinload(relationship))
@@ -105,8 +112,10 @@ class AsyncRepository(Repository[T]):
         where: bool | None = None,
         relationships: list[Any] | None = None,
         order_by: list[Any] | None = None,
+        offset: int = 0,
+        limit: int = 0,
     ):
-        q = self._build_query(where, relationships, order_by)
+        q = self._build_query(where, relationships, order_by, offset, limit)
         return (await self.db.exec(q)).all()
 
     async def first_or_create(
