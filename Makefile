@@ -10,7 +10,7 @@ test-cov: ## run the tests with coverage
         --cov=. tests/ \
         -vv
 
-help: ## prints help for target1 and target2
+help: ## print help
 	@grep '##' $(MAKEFILE_LIST) \
 		| grep -Ev 'grep|###' \
 		| sed -e 's/^\([^:]*\):[^#]*##\([^#]*\)$$/\1:\2/' \
