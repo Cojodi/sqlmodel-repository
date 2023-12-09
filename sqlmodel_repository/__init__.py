@@ -120,7 +120,7 @@ class AsyncRepository(Repository[T]):
 
     async def all(
         self,
-        *_,
+        *,
         where: bool | None = None,
         relationships: list[Any] | None = None,
         order_by: list[Any] | None = None,
