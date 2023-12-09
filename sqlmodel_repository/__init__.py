@@ -62,7 +62,7 @@ class Repository(Generic[T]):
         return self.db.exec(q).all()
 
     def _build_query(
-        self, where, relationships, order_by, offset: int = 0, limit: int = 0
+        self, where, relationships=None, order_by=None, offset: int = 0, limit: int = 0
     ):
         q = select(self.table_cls)
         if limit > 0:
