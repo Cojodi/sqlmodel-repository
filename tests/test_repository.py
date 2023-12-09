@@ -57,12 +57,9 @@ async def test_first_or_create(repo: Repo):
 async def test_update(repo: Repo):
     expect = repo.user.create(orm=UserDB(username="user1"))
     await repo.commit()
-    await repo.refresh(expect)
 
     expect = repo.user.update(expect, username="user2")
     await repo.commit()
-    await repo.refresh(expect)
-
     assert expect.username == "user2"
 
 
@@ -70,15 +67,12 @@ async def test_update(repo: Repo):
 async def test_update_from_orm(repo: Repo):
     expect = repo.user.create(orm=UserDB(username="user1"))
     await repo.commit()
-    await repo.refresh(expect)
 
     class UserIn(SQLModel):
         username: str
 
     expect = repo.user.update(expect, orm=UserIn(username="user2"))
     await repo.commit()
-    await repo.refresh(expect)
-
     assert expect.username == "user2"
 
 
