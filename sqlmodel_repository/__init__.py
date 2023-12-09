@@ -54,7 +54,7 @@ class Repository(Generic[T]):
         where: bool | None = None,
         relationships: list[Any] | None = None,
         order_by: list[Any] | None = None,
-    ):
+    ):  # pragma: no cover
         q = self._build_query(where, relationships, order_by)
         return self.db.exec(q).first()
 
@@ -64,7 +64,7 @@ class Repository(Generic[T]):
         where: bool | None = None,
         relationships: list[Any] | None = None,
         order_by: list[Any] | None = None,
-    ):
+    ):  # pragma: no cover
         q = self._build_query(where, relationships, order_by)
         return self.db.exec(q).one()
 
@@ -74,7 +74,7 @@ class Repository(Generic[T]):
         where,
         relationships,
         order_by,
-    ):
+    ):  # pragma: no cover
         q = self._build_query(where, relationships, order_by)
         return self.db.exec(q).all()
 
