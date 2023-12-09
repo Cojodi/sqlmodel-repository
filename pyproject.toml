@@ -16,7 +16,86 @@ pytest-asyncio = "^0.23.2"
 pytest-cov = "^4.1.0"
 aiosqlite = "^0.19.0"
 mysqlclient = "^2.2.0"
+ruff = "^0.1.7"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+# Minimum supported version
+target-version = "py310"
+line-length = 88
+show-fixes = true
+select = [
+    "F", "E", "W", "C90", "N", "D", "UP", "ANN", "S112", "S110", "BLE", "FBT",
+    "A", "C4", "DTZ", "EM", "EXE", "INP", "PIE", "PYI", "Q", "RSE", "RET",
+    "SIM", "TID", "INT", "ARG", "ERA", "PL", "RUF", "B", "I001", "I002"
+]
+ignore = [
+    "ARG001", # arg is not accessed
+    "A003", # class attr shadowing python builtin
+    "ANN001", # missing function arg annotation
+    "ANN002", # missing *args annotation
+    "ANN003", # missing **kwargs annotation
+    "ANN101", # missing type for self in __init__
+    "ANN201", # public function return type missing
+    "ANN202", # private function timereturn type missing (inner function)
+    "ANN204", # special function return type missing
+    "B008", # no function calls in function params (need this for DDepends)
+    "B010", # ignore setattr
+    "EXE002", # no shbang present
+    "D100", # missing docstring in module
+    "D101", # missing docstring in class
+    "D102", # missing docstring in class method
+    "D103", # missing docstring in function
+    "D104", # missing docstring in public package
+    "D107", # missing docstring in __init__
+    "E501", # line too long (shouldn't matter with formatter)
+    "TID252", # relative imports from parent modules are banned
+    "UP007", # used X | Y for unions
+    # "UP007",
+    # "UP037"
+    "PLR0913", # don't use more than 5 args per function
+]
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Errors which can be fixed
+fixable = [
+    "I001", # isort unsorted imports
+    "I002", # isort missing imports
+]
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+# fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]
+unfixable = []
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "tests/",
+]
+
+[tool.ruff.mccabe]
+max-complexity = 15
+
+[tool.mypy]
+ignore_missing_imports = true
