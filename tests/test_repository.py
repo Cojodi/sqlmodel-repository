@@ -62,6 +62,11 @@ async def test_update(repo: Repo):
     await repo.commit()
     assert expect.username == "user2"
 
+    update_ = await repo.user.first(where=UserDB.username == "user2")
+    assert update_.username == "user2"
+    old = await repo.user.first(where=UserDB.username == "user1")
+    assert old == None
+
 
 @pytest.mark.asyncio
 async def test_update_from_orm(repo: Repo):
@@ -74,6 +79,11 @@ async def test_update_from_orm(repo: Repo):
     expect = repo.user.update(expect, orm=UserIn(username="user2"))
     await repo.commit()
     assert expect.username == "user2"
+
+    update_ = await repo.user.first(where=UserDB.username == "user2")
+    assert update_.username == "user2"
+    old = await repo.user.first(where=UserDB.username == "user1")
+    assert old == None
 
 
 @pytest.mark.asyncio

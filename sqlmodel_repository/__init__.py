@@ -27,6 +27,8 @@ class Repository(Generic[T]):
 
     def update(self, o, *, orm: SQLModel | None = None, **kwargs):
         kwargs.update(orm.model_dump() if orm is not None else {})
+        for key, value in kwargs.items():
+            setattr(o, key, value)
         return o.model_validate(kwargs)
 
     def first(
