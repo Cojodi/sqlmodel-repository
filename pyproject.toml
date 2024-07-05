@@ -6,7 +6,7 @@ authors = ["Dmitrij Vinokour <dmitrij.vinokour@cojodi.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0.0"
-sqlmodel = "^0.0.14"
+sqlmodel = ">=0.0.14"
 
 [tool.poetry.dev-dependencies]
 
