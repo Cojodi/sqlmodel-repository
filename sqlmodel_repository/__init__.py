@@ -30,7 +30,7 @@ class Repository(Generic[T]):
         for key, value in kwargs.items():
             if not exclude_none or value is not None:
                 setattr(o, key, value)
-        return o.model_validate(kwargs)
+        return o.model_validate(o)
 
     def first(
         self,
