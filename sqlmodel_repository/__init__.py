@@ -25,10 +25,11 @@ class Repository(Generic[T]):
 
         return o
 
-    def update(self, o, *, orm: SQLModel | None = None, **kwargs):
+    def update(self, o, *, orm: SQLModel | None = None, exclude_none=True, **kwargs):
         kwargs.update(orm.model_dump() if orm is not None else {})
         for key, value in kwargs.items():
-            setattr(o, key, value)
+            if not exclude_none or value is not None:
+                setattr(o, key, value)
         return o.model_validate(kwargs)
 
     def first(
